@@ -1,0 +1,173 @@
+" Vim Settings "
+
+" Settings"{{{
+syntax on                                   " syntax highlighting
+set nocompatible                            " use vim not vi
+set nobackup                                " No backup files
+set nowritebackup                           " No write backup
+set noswapfile                              " No swap file
+set history=100                             " Command history
+set ruler                                   " Show cursor
+set showcmd                                 " Show incomplete commands
+set incsearch                               " Search as you type
+set hlsearch                                " Highlight search matches
+set smartcase                               " Ignore case in search
+set ignorecase                              " Make sure any /search doesn't need \c
+set hidden                                  " A buffer is marked ‘hidden’ if it is unsaved
+set wrap                                    " Word wrap off
+set linebreak                               " Set linebreak
+set backspace=indent,eol,start              " Allow backspace to delete eol,indent,sol
+set expandtab                               " Convert tabs to spaces
+set tabstop=2                               " Set Tab size
+set shiftwidth=2                            " Number of spaces for Tab
+set relativenumber                          " Line numbers On
+set timeout timeoutlen=1000 ttimeoutlen=100 " Get rid of delay on O
+set laststatus=2                            " Show status bar
+set statusline=%f\ %=L:%l/%L\ %c\ (%p%%)    " Set status line to something useful
+set guioptions-=T                           " Hide toolbar
+set encoding=utf-8                          " UTF encoding
+set autoread                                " Autoload files that changed outside of vim
+set clipboard+=unnamed                      " Use system clipboard
+set shortmess+=I                            " Don't show intro
+set splitbelow
+set splitright                              " Better splits
+set visualbell                              " Disable beep for mistypes
+set wildmenu                                " Visual autocomplete for command menu
+set lazyredraw                              " redraw only when needed
+set showmatch                               " highlight a matching [{()}] when cursor is placed on start/end
+set numberwidth=1
+let g:netrw_liststyle=3                     " Set file explorer to use layout similar to NERDTree
+autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
+set path+=**
+set ft=zsh
+"}}}
+
+" Plugins {{{
+execute pathogen#infect()
+filetype plugin indent on " required by Pathogen
+
+" Theme
+set t_Co=256
+set background=dark
+colorscheme torte
+" torte ChocolatePapaya gotham256 Monokai 256-jungle
+
+" Searching the file system
+map <leader>' :NERDTreeToggle<cr>
+let g:NERDTreeWinSize=20
+
+" Tabularize
+map <Leader>: :Tabularize /:<cr>
+map <Leader>= :Tabularize /=<cr>
+
+let g:syntastic_check_on_open = 0
+
+" Easy Motion
+nmap s <Plug>(easymotion-s2)
+
+" UltiSnips
+let g:UltiSnipsSnippetDirectories = ['/home/digitalml-ben/.vim/bundle/ultisnips/text']
+let g:UltiSnipsExpandTrigger      = "<tab>"
+let g:UltiSnipsUsePythonVersion   = 3
+let g:vimwiki_global_ext = 0
+let g:vimwiki_table_mappings = 0
+autocmd BufRead,BufNew *.md set filetype=markdown
+
+" }}}
+
+" Mappings {{{
+" Notes...
+" map in NORMAL mode use :nmap | :nnoremap
+" map in VISUAL mode use :vmap | :vnoremap
+
+" Faster movement
+inoremap jj <ESC>
+nnoremap <S-t> gg
+nnoremap <S-j> <C-d>
+nnoremap <S-k> <C-u>
+nnoremap <S-h> 5h
+nnoremap <S-l> 5l
+nnoremap <Left> ^
+nnoremap <Right> $
+
+" Moving between splits
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-L> <C-W><C-L>
+nmap <C-H> <C-W><C-H>
+
+" Navigating between Windows
+nnoremap <A-Left> <C-w>h
+nnoremap <A-Right> <C-w>l
+
+" Get Date
+nnoremap <Leader>d "=strftime("%I:%M%p %b %d '%y")<CR>P
+
+" Copy Pate
+vnoremap <C-c> :w !pbcopy<CR><CR>
+map <C-v> :r !pbpaste<CR>
+
+" }}}
+
+" Other"{{{
+set runtimepath+=~/.vim/config
+runtime basic.vim
+runtime plugins.vim
+runtime bindings.vim
+
+" template for files
+" au! filetypedetect BufRead,BufNewFile *.txt    setfiletype txtfmt
+
+" test for :command mapping
+:command RT :read ~/.vim/config/template.log
+:command! -nargs=1 Foo execute "echo '" . toupper('<args>') . "'"
+
+" Number colors
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGreen ctermbg=NONE gui=NONE guifg=DarkGreen guibg=NONE
+
+" Relative numbers only in Normal mode, Absolute in Insert.
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+" Automatic bulleting
+setlocal formatoptions=ctnqro
+setlocal comments+=n:*,n:#
+
+" etc
+set textwidth=170
+set spellsuggest=5
+
+" emmet
+let g:user_emmet_leader_key=','
+
+" folds
+set foldmethod=marker
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Disable Flash Beeping
+set noeb vb t_vb=
+au GUIEnter * set vb t_vb=
+"}}}
+
+" VimWiki"{{{
+
+map <leader>n :e! /notes
+map <leader>] :Note
+map <leader>[ :NoteTab
+map <leader>0 :Nls
+command -nargs=1 Note :exe "e! " . fnameescape("/notes/<args>.txt")
+command -nargs=1 NoteTab :exe "tabnew " . fnameescape("/notes/<args>.txt")
+command -nargs=1 Nls :Ack --text "<args>" /notes
+
+command! -nargs=1 Ngrep vimgrep "<args>" $WIKI/**/*.txt
+nnoremap <leader>[ :Ngrep
+
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+let g:vimwiki_list = [{'path': '/mnt/c/Users/Ben-DigitalML/Desktop/dml/dev/wiki/vimwiki',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+
+"}}}
+
