@@ -1,0 +1,57 @@
+. ~/.ps1.sh
+
+# Legends
+alias calendar="c; cal -3"
+
+# Aliases
+alias B='v ~/.bash_profile'
+alias V='v ~/.vimrc'
+alias S='. ~/.bash_profile;'
+
+alias search="find . -name "
+alias n='node '
+alias c='clear'
+alias x='exit'
+alias v='vim'
+alias a='pwd; ls'
+alias aa='pwd; ls -A'
+alias rmf='rm -rf'
+alias allow='chmod +x *'
+
+alias host='sudo vim /private/etc/hosts'
+alias desk='cd ~/Desktop; a'
+alias docs='cd ~/Documents; a'
+alias down='cd ~/Downloads; a'
+alias p="python3 "
+
+alias :='cd ../; a'
+alias ::='cd ../..; a'
+alias :::='cd ../../..; a'
+
+alias gs='git status'
+alias ga='git add .'
+alias gb='git branch'
+alias gc='git commit -m '
+alias gch='git checkout '
+alias gd='git branch -D '
+alias gl='git log --oneline --graph --decorate --all;'
+alias gp='git push origin '
+
+alias ip="ipconfig getifaddr en0"
+
+alias show='docker ps -s'
+alias stop='docker rm -f $(docker ps -aq)'
+
+alias checkM='find . -tAypef | wc -l; du -sh *'
+alias vimstl="cd ~/.vim/bundle; a;"
+alias snippets="cd ~/.vim/bundle/ultisnips/text; a"
+
+pandapdf() { pandoc $1.md -s -o $1.pdf; a; }
+
+stty -ixon
+
+shopt -s checkwinsize
+shopt -s extglob
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+export HISTSIZE=2000
