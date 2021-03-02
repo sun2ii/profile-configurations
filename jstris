@@ -1,0 +1,18 @@
+// ==UserScript==
+// @name         Jstris
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Centralize tetris to the middle for zen focus
+// @author       Ben B
+// @match        https://jstris.jezevec10.com/?play=1&mode=1
+// ==/UserScript==
+
+(function() {
+    document.querySelector(".navbar").style.display = 'none';
+    document.querySelector("#players").style.display = 'none';
+    document.querySelector("#buttonsBox").style.display = 'none';
+    document.querySelector("#sprintText").innerHTML = "";
+    document.querySelector("#stage").style.marginBottom = "20px";
+    document.querySelector('#main').style.cssText = "margin: 12.5% auto 0 auto; float: none";
+    document.querySelector('#gstats').style.cssText = "position: absolute; top: 200px; left: -210px; color: green";
+ })();
