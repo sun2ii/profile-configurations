@@ -49,7 +49,7 @@ filetype plugin indent on " required by Pathogen
 " Theme
 set t_Co=256
 set background=dark
-colorscheme torte
+colorscheme zellner
 " torte ChocolatePapaya gotham256 Monokai 256-jungle
 
 " Searching the file system
@@ -170,4 +170,3 @@ let g:vimwiki_list = [{'path': '/mnt/c/Users/Ben-DigitalML/Desktop/dml/dev/wiki/
 
 
 "}}}
-
